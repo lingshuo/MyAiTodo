@@ -27,7 +27,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Verbose HTTP logging only for debuggable builds.
+            buildConfigField("boolean", "ENABLE_HTTP_LOGGING", "true")
+        }
         release {
+            // Never ship request/response bodies in release builds.
+            buildConfigField("boolean", "ENABLE_HTTP_LOGGING", "false")
             optimization {
                 enable = true
                 packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")
@@ -46,6 +52,9 @@ android {
 
     buildFeatures {
         compose = true
+        // Needed for ENABLE_HTTP_LOGGING, so the logging interceptor can stay a
+        // plain `implementation` dependency while still being debug-only at runtime.
+        buildConfig = true
     }
 }
 
@@ -87,6 +96,12 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
+
+    // --- Networking (Retrofit + coroutines + kotlinx-serialization) ---
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.kotlinx.serialization)
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging.interceptor)
 
     // --- Unit tests ---
     testImplementation(libs.junit)
