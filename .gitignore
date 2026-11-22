@@ -1,0 +1,38 @@
+# === Android / Gradle build outputs ===
+.gradle/
+build/
+*/build/
+**/build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+release/
+
+# === Local configuration / secrets ===
+local.properties
+*.jks
+*.keystore
+
+# === IntelliJ / Android Studio ===
+.idea/
+*.iml
+*.ipr
+*.iws
+.navigation/
+
+# === Kotlin ===
+.kotlin/
+
+# === OS / editor caches ===
+.DS_Store
+Thumbs.db
+*.swp
+*~
